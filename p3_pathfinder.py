@@ -49,20 +49,20 @@ def find_path(source_point, destination_point, mesh):
         else:
             return []
             
-    def eucDist(pointA, pointB):
-        x1, y1 = pointA
-        x2, y2 = pointB
-
-        return sqrt((x2-x1)**2+(y2-y1)**2)
-            
-    def is_in_box(point, box):
+    def checkBox(point, box):
         x, y = point
         x1, x2, y1, y2 = box
         if x > x1 and x <= x2 and y > y1 and y <= y2:
             return True
         else:
             return False
+
+    def eucDist(pointA, pointB):
+        x1, y1 = pointA
+        x2, y2 = pointB
+        return sqrt((x2-x1)**2+(y2-y1)**2)
     
+
     path = []
     visited_nodes = []
     start_box = None
@@ -71,11 +71,11 @@ def find_path(source_point, destination_point, mesh):
     destination = False
     
     for box in mesh['boxes']:
-        if is_in_box(source_point, box):
+        if checkBox(source_point, box):
             start_box = box
             path.append(source_point)
             source = True
-        if is_in_box(destination_point, box):
+        if checkBox(destination_point, box):
             end_box = box
             path.append(destination_point)
             destination = True
